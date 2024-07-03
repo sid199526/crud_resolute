@@ -1,0 +1,31 @@
+<!-- src/app/components/user-form/user-form.component.html -->
+<h1 mat-dialog-title>{{ userForm.value.id ? 'Edit User' : 'Add User' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('email') && !userForm.get('email')?.hasError('required')">Invalid email format</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="Admin">Admin</mat-option>
+          <mat-option value="User">User</mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('role')?.hasError('required')">Role is required</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</div>
